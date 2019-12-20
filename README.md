@@ -36,6 +36,8 @@ A spark master instance name may be like: `spark://node013.cm.cluster:7077
 `
 Can be found out by viewing/curl the spark web UI or in the spark logs.
 
+An alternative approach using HDFS, run `start_spark_run.sh`. Give appropriate values to the the arguements.
+
 ## Technologies
 * Apache Spark (https://spark.apache.org/)
 * Python 3.5.2 (https://www.python.org/)
