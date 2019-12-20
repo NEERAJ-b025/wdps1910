@@ -1,5 +1,5 @@
 ES_PORT=9200
-ES_BIN=/home/jurbani/wdps/elasticsearch-2.4.1/bin/elasticsearch
+ES_BIN=/home/wdps1910/wdps/elasticsearch-2.4.1/bin/elasticsearch
 
 >.es_log*
 prun -o .es_log -v -np 1 ESPORT=$ES_PORT $ES_BIN </dev/null 2> .es_node &
@@ -9,6 +9,6 @@ ES_PID=$!
 until [ -n "$(cat .es_log* | grep YELLOW)" ]; do sleep 1; done
 echo "elasticsearch should be running now on node $ES_NODE:$ES_PORT (connected to process $ES_PID)"
 
-python3 elasticsearch.py $ES_NODE:$ES_PORT "Vrije Universiteit Amsterdam"
+#python3 elasticsearch.py $ES_NODE:$ES_PORT "Vrije Universiteit Amsterdam"
 
-kill $ES_PID
+#kill $ES_PID
