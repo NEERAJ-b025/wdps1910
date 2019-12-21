@@ -224,7 +224,6 @@ def get_output(record):
 
 INFILE = sys.argv[1]
 OUTFILE = sys.argv[2]
-SPARK_INSTANCE = sys.argv[3]
 #spark = SparkSession.builder.master(SPARK_INSTANCE).appName("nerl").getOrCreate()
 sc = SparkContext("yarn", "wdps1910")
 
@@ -236,7 +235,7 @@ rdd_esearched = rdd_pairs.flatMapValues(get_elasticsearch)  # (wid, (eName, {f_i
 rdd_kbdat = rdd_esearched.flatMapValues(get_kbdata)
 rdd_linkedent = rdd_kbdat.flatMapValues(get_linkedent)
 
-result = rdd_linkedent.coalesce(1).map(get_output)
+result = rdd_linkedent.map(get_output)
 
 result.saveAsTextFile(OUTFILE)
 
