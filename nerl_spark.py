@@ -1,7 +1,7 @@
 import sys
 import requests
 from functools import reduce
-from pyspark.sql import SparkSession
+from pyspark import SparkContext
 from io import StringIO
 import re
 from html.parser import HTMLParser
@@ -225,8 +225,10 @@ def get_output(record):
 INFILE = sys.argv[1]
 OUTFILE = sys.argv[2]
 SPARK_INSTANCE = sys.argv[3]
-spark = SparkSession.builder.master(SPARK_INSTANCE).appName("nerl").getOrCreate()
-rdd = spark.sparkContext.newAPIHadoopFile(INFILE, "org.apache.hadoop.mapreduce.lib.input.TextInputFormat",
+#spark = SparkSession.builder.master(SPARK_INSTANCE).appName("nerl").getOrCreate()
+sc = SparkContext("yarn", "wdps1910")
+
+rdd = sc.newAPIHadoopFile(INFILE, "org.apache.hadoop.mapreduce.lib.input.TextInputFormat",
                                           "org.apache.hadoop.io.LongWritable", "org.apache.hadoop.io.Text",
                                           conf={"textinputformat.record.delimiter": "WARC/1.0"})
 rdd_pairs = rdd.flatMap(get_entities)  # (wid, (eName, label))

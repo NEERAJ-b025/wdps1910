@@ -4,7 +4,8 @@ OUTFILE=${3:-"result"} #Give respective output file in the HDFS
 SPARK_INSTANCE=${4:-"spark://node013.cm.cluster:7077"} #Give appropriate spark instance
 
 PYSPARK_PYTHON=PYTHON3.5 PYSPARK_DRIVER_PYTHON=PYTHON3.5 spark-submit \
---master ${SPARK_INSTANCE} ${SCRIPT} ${INFILE} ${OUTFILE}
+--master ${SPARK_INSTANCE} ${SCRIPT} ${INFILE} ${OUTFILE} ${SPARK_INSTANCE}
 
 hdfs dfs -cat ${OUTFILE}"/*" > ${OUTFILE}
 hadoop fs -rm -r ${OUTFILE}
+
